@@ -5,36 +5,14 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 )
 
-func CreateFile() {
-	todo := Task{
-		Id: 1, Description: "Hello",
-		Status:    InProgress,
-		CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
-		UpdatedAt: time.Now().Format("2006-01-02 15:04:05"),
-	}
 
-	todoJson, err := json.Marshal(todo)
-	if err != nil {
-		log.Fatalf("Error converting Struct to JSON: %v", err)
-	}
-	e:= os.WriteFile("Hello.json", todoJson, 0644)
-	if e != nil {
-		log.Fatalf("Error converting Struct to JSON: %v", e)
-		}
-	fmt.Println("File Written successfully")
+func ReadFile(file string) []Task {
 
-	fmt.Printf("%v", todo)
+	var data []Task
 
-}
-
-func ReadFile() {
-
-	content, err := os.ReadFile("Hello.json")
-	var data Task
-
+	content, err := os.ReadFile(file)
 	if err != nil {
 		log.Fatalf("Error reading file %v", err)
 	}
@@ -43,6 +21,78 @@ func ReadFile() {
 	if e != nil {
 		log.Fatalf("Error unmarshalling the data: %v", e)
 	}
-	fmt.Printf("%v", data)
+	return data
+
+}
+
+func IsFileEmpty(filename string) (bool, error) {
+	// Get file information
+	fileInfo, err := os.Stat(filename)
+	if err != nil {
+		return false, err // Return error if file does not exist or any other error occurs
+	}
+
+	// Check if file size is 0
+	return fileInfo.Size() == 0, nil
+}
+
+func AppendToFile(filename string, data Task) error {
+
+	var fileData []Task
+
+	content, err := os.ReadFile(filename)
+	if err != nil {
+		log.Fatalf("Error reading file %v", err)
+	}
+
+	//breaks if file is empty
+	empty, err := IsFileEmpty(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if empty {
+
+		var newArray []Task
+		newArray = append(newArray, data)
+
+		todoJson, err := json.MarshalIndent(newArray, "", " ")
+		if err != nil {
+			log.Fatalf("Error converting Struct to JSON: %v", err)
+		}
+
+		e := os.WriteFile("hello.json", todoJson, 0644)
+		if e != nil {
+			log.Fatalf("Error converting Struct to JSON: %v", e)
+		}
+
+		fmt.Printf("File Written successfully")
+
+	} else {
+		e := json.Unmarshal(content, &fileData)
+		if e != nil {
+			log.Fatalf("Error unmarshalling the data: %v", e)
+		}
+
+		file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
+
+		if err != nil {
+			return err
+		}
+
+		defer file.Close()
+
+		newData := append(fileData, data)
+
+		jsondata, err := json.MarshalIndent(newData, "", " ")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := file.WriteString(string(jsondata) + "\n"); err != nil {
+			return err
+		}
+
+	}
+	return nil
 
 }
