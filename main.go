@@ -15,8 +15,9 @@ func main() {
 		UpdatedAt: time.Now().Format("2006-01-02 15:04:05"),
 	}
 
-	AppendToFile("hello.json", todo)
+	//AppendToFile("hello.json", todo)
 	// data := ReadFile("hello.json")
 	// fmt.Print(data)
+	UpdateFile("hello.json",todo.Id)
 
 }

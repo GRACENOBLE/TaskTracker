@@ -7,6 +7,17 @@ import (
 	"os"
 )
 
+func IsFileEmpty(filename string) (bool, error) {
+	// Get file information
+	fileInfo, err := os.Stat(filename)
+	if err != nil {
+		return false, err // Return error if file does not exist or any other error occurs
+	}
+
+	// Check if file size is 0
+	return fileInfo.Size() == 0, nil
+}
+
 func ReadFile(file string) []Task {
 
 	var data []Task
@@ -24,16 +35,6 @@ func ReadFile(file string) []Task {
 
 }
 
-func IsFileEmpty(filename string) (bool, error) {
-	// Get file information
-	fileInfo, err := os.Stat(filename)
-	if err != nil {
-		return false, err // Return error if file does not exist or any other error occurs
-	}
-
-	// Check if file size is 0
-	return fileInfo.Size() == 0, nil
-}
 
 func AppendToFile(filename string, data Task) error {
 
@@ -96,4 +97,13 @@ func AppendToFile(filename string, data Task) error {
 	}
 	return nil
 
+}
+
+func UpdateFile(filename string, id int64){
+	tasks := ReadFile(filename)
+	for _, task := range tasks{
+		if task.Id == id{
+			print("Match")
+		}
+	}
 }
