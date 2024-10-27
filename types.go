@@ -1,11 +1,11 @@
 package main
 
-type status int
+type status string
 
 const (
-	Todo       status = iota //0
-	InProgress               //1
-	Done                     //2
+	Todo       status = "todo"
+	InProgress status = "InProgress"
+	Done       status = "Done"
 )
 
 type Task struct {

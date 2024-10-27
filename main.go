@@ -4,7 +4,7 @@ import (
 
 	//"log"
 	"time"
-	// "fmt"
+	//"fmt"
 )
 
 func main() {
@@ -16,5 +16,7 @@ func main() {
 	}
 
 	AppendToFile("hello.json", todo)
+	// data := ReadFile("hello.json")
+	// fmt.Print(data)
 
 }

@@ -7,14 +7,13 @@ import (
 	"os"
 )
 
-
 func ReadFile(file string) []Task {
 
 	var data []Task
 
 	content, err := os.ReadFile(file)
 	if err != nil {
-		log.Fatalf("Error reading file %v", err)
+		log.Fatalf("Error reading file: %v", err)
 	}
 
 	e := json.Unmarshal(content, &data)
@@ -39,13 +38,15 @@ func IsFileEmpty(filename string) (bool, error) {
 func AppendToFile(filename string, data Task) error {
 
 	var fileData []Task
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
+		os.Create(filename)
+	}
 
 	content, err := os.ReadFile(filename)
 	if err != nil {
 		log.Fatalf("Error reading file %v", err)
 	}
 
-	//breaks if file is empty
 	empty, err := IsFileEmpty(filename)
 	if err != nil {
 		log.Fatal(err)
