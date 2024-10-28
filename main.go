@@ -18,6 +18,6 @@ func main() {
 	//AppendToFile("hello.json", todo)
 	// data := ReadFile("hello.json")
 	// fmt.Print(data)
-	UpdateFile("hello.json",todo.Id)
+	UpdateFile("hello.json", todo.Id, todo)
 
 }

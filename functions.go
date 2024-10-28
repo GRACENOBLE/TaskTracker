@@ -35,17 +35,12 @@ func ReadFile(file string) []Task {
 
 }
 
-
 func AppendToFile(filename string, data Task) error {
 
 	var fileData []Task
+
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		os.Create(filename)
-	}
-
-	content, err := os.ReadFile(filename)
-	if err != nil {
-		log.Fatalf("Error reading file %v", err)
 	}
 
 	empty, err := IsFileEmpty(filename)
@@ -70,6 +65,11 @@ func AppendToFile(filename string, data Task) error {
 		fmt.Printf("File Written successfully")
 
 	} else {
+		
+		content, err := os.ReadFile(filename)
+		if err != nil {
+			log.Fatalf("Error reading file %v", err)
+		}
 		e := json.Unmarshal(content, &fileData)
 		if e != nil {
 			log.Fatalf("Error unmarshalling the data: %v", e)
@@ -99,11 +99,23 @@ func AppendToFile(filename string, data Task) error {
 
 }
 
-func UpdateFile(filename string, id int64){
+func UpdateFile(filename string, id int64, updatedTask Task) {
 	tasks := ReadFile(filename)
-	for _, task := range tasks{
-		if task.Id == id{
-			print("Match")
+	//will do binary search in future for faster search
+	for i, task := range tasks {
+		if task.Id == id {
+			tasks[i] = updatedTask
 		}
 	}
+
+	jsonData, err := json.MarshalIndent(tasks, "", " ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	e := os.WriteFile("hello.json", jsonData, 0644)
+	if e != nil{
+		log.Fatal(e)
+	}
+
 }
