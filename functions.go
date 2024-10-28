@@ -99,7 +99,7 @@ func AppendToFile(filename string, data Task) error {
 
 }
 
-func UpdateFile(filename string, id int64, updatedTask Task) {
+func UpdateTask(filename string, id int64, updatedTask Task) {
 	tasks := ReadFile(filename)
 	//will do binary search in future for faster search
 	for i, task := range tasks {
@@ -119,3 +119,23 @@ func UpdateFile(filename string, id int64, updatedTask Task) {
 	}
 
 }
+
+func DeleteTask(filename string, id int64){
+	tasks := ReadFile(filename)
+	//will do binary search in future for faster search
+	for i, task := range tasks {
+		if task.Id == id {
+			tasks = append(tasks[:i], tasks[i+1:]...)
+		}
+	}
+
+	jsondata, err := json.MarshalIndent(tasks, "", " ") 
+	if err != nil{
+		log.Fatal(err)
+	} 
+	e := os.WriteFile("hello.json", jsondata, 0644)
+	if e != nil {
+		log.Fatal(e)
+	} 
+}
+
