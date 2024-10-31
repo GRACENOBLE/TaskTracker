@@ -53,7 +53,7 @@ func AppendToFile(filename string, task string) error {
 		data := Task{
 		Id:          1,
 		Description: task,
-		Status:      InProgress,
+		Status:     Todo,
 		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
 		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
 	}
@@ -89,7 +89,7 @@ func AppendToFile(filename string, task string) error {
 		data := Task{
 		Id:          int64(len(fileData)+1),
 		Description: task,
-		Status:      InProgress,
+		Status:      Todo,
 		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
 		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
 	}

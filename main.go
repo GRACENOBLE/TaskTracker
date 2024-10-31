@@ -20,6 +20,10 @@ func main() {
 
 	parts := strings.Fields(command)
 
+	if len(parts)<2{
+		log.Fatal("Please input more than one argument.")
+	}
+
 	if parts[0] == "add" && parts[1] != "" {
 
 		AppendToFile("hello.json", parts[1])
