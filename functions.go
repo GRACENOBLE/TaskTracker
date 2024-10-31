@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 )
 
 func IsFileEmpty(filename string) (bool, error) {
@@ -35,7 +36,15 @@ func ReadFile(file string) []Task {
 
 }
 
-func AppendToFile(filename string, data Task) error {
+func AppendToFile(filename string, task string) error {
+
+	data := Task{
+		Id:          2,
+		Description: task,
+		Status:      InProgress,
+		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+	}
 
 	var fileData []Task
 
@@ -65,7 +74,7 @@ func AppendToFile(filename string, data Task) error {
 		fmt.Printf("File Written successfully")
 
 	} else {
-		
+
 		content, err := os.ReadFile(filename)
 		if err != nil {
 			log.Fatalf("Error reading file %v", err)
@@ -99,11 +108,21 @@ func AppendToFile(filename string, data Task) error {
 
 }
 
-func UpdateTask(filename string, id int64, updatedTask Task) {
+func UpdateTask(filename string, id int64, taskBody string) {
+
 	tasks := ReadFile(filename)
 	//will do binary search in future for faster search
+
 	for i, task := range tasks {
 		if task.Id == id {
+			updatedTask := Task{
+				Id:          2,
+				Description: taskBody,
+				Status:      InProgress,
+				CreatedAt:   task.CreatedAt,
+				UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+			}
+
 			tasks[i] = updatedTask
 		}
 	}
@@ -112,15 +131,15 @@ func UpdateTask(filename string, id int64, updatedTask Task) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	e := os.WriteFile("hello.json", jsonData, 0644)
-	if e != nil{
+	if e != nil {
 		log.Fatal(e)
 	}
 
 }
 
-func DeleteTask(filename string, id int64){
+func DeleteTask(filename string, id int64) {
 	tasks := ReadFile(filename)
 	//will do binary search in future for faster search
 	for i, task := range tasks {
@@ -129,13 +148,12 @@ func DeleteTask(filename string, id int64){
 		}
 	}
 
-	jsondata, err := json.MarshalIndent(tasks, "", " ") 
-	if err != nil{
+	jsondata, err := json.MarshalIndent(tasks, "", " ")
+	if err != nil {
 		log.Fatal(err)
-	} 
+	}
 	e := os.WriteFile("hello.json", jsondata, 0644)
 	if e != nil {
 		log.Fatal(e)
-	} 
+	}
 }
-

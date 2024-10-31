@@ -1,23 +1,37 @@
 package main
 
 import (
-
-	//"log"
-	"time"
-	//"fmt"
+	// "time"
+	"bufio"
+	"log"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
-	todo := Task{
-		Id: 2, Description: "Hello",
-		Status:    InProgress,
-		CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
-		UpdatedAt: time.Now().Format("2006-01-02 15:04:05"),
+	reader := bufio.NewReader(os.Stdin)
+
+	print("What would you like to do?\n")
+
+	command, _ := reader.ReadString('\n')
+
+	parts := strings.Fields(command)
+
+	if parts[0] == "add" && parts[1] != "" {
+
+		AppendToFile("hello.json", parts[1])
+
+	} else if parts[0] == "update" && parts[1] != "" && parts[2] != "" {
+		print("running")
+
+		index, err := strconv.ParseInt(parts[1], 10, 64)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		UpdateTask("hello.json", index, parts[2])
+
 	}
 
-	//AppendToFile("hello.json", todo)
-	// data := ReadFile("hello.json")
-	// fmt.Print(data)
-	//UpdateTask("hello.json", todo.Id, todo)
-	DeleteTask("hello.json", todo.Id)
 }
