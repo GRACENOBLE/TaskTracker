@@ -13,17 +13,18 @@ import (
 func main() {
 
 	reader := bufio.NewReader(os.Stdin)
-	
+
 	for {
 
-		print("What would you like to do?\n")
+		print("Todo CLI: ")
 
 		command, _ := reader.ReadString('\n')
 
 		parts := strings.Fields(command)
 
 		if len(parts) < 2 {
-			log.Fatal("Please input more than one argument.")
+			fmt.Println("-> Please input more than one argument.")
+			continue
 		}
 
 		if parts[0] == "add" && parts[1] != "" {
@@ -69,7 +70,7 @@ func main() {
 
 		} else if parts[0] == "delete" && parts[1] != "" {
 
-			fmt.Println("Are you sure?(y/n)")
+			fmt.Println("-> Are you sure?(y/n)")
 
 			var choice string
 			fmt.Scanf("%v", &choice)
@@ -85,6 +86,8 @@ func main() {
 
 			}
 
+		}else{
+			fmt.Println("Oops! I dont seem to know that command. Try the \"help\" command")
 		}
 
 	}

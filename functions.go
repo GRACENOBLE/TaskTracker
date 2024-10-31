@@ -182,7 +182,17 @@ func DeleteTask(filename string, id int64) {
 		}
 	}
 
-	jsondata, err := json.MarshalIndent(tasks, "", " ")
+	var newTasks []Task
+
+	for i, task := range tasks {
+			
+		task.Id = int64(i+1)
+
+		newTasks = append(newTasks, task)
+			
+	}
+
+	jsondata, err := json.MarshalIndent(newTasks, "", " ")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -191,5 +201,4 @@ func DeleteTask(filename string, id int64) {
 		log.Fatal(e)
 	}
 
-	
 }
