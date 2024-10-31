@@ -38,14 +38,6 @@ func ReadFile(file string) []Task {
 
 func AppendToFile(filename string, task string) error {
 
-	data := Task{
-		Id:          2,
-		Description: task,
-		Status:      InProgress,
-		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-	}
-
 	var fileData []Task
 
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
@@ -56,7 +48,15 @@ func AppendToFile(filename string, task string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	if empty {
+		data := Task{
+		Id:          1,
+		Description: task,
+		Status:      InProgress,
+		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+	}
 
 		var newArray []Task
 		newArray = append(newArray, data)
@@ -75,6 +75,8 @@ func AppendToFile(filename string, task string) error {
 
 	} else {
 
+
+
 		content, err := os.ReadFile(filename)
 		if err != nil {
 			log.Fatalf("Error reading file %v", err)
@@ -83,6 +85,14 @@ func AppendToFile(filename string, task string) error {
 		if e != nil {
 			log.Fatalf("Error unmarshalling the data: %v", e)
 		}
+
+		data := Task{
+		Id:          int64(len(fileData)+1),
+		Description: task,
+		Status:      InProgress,
+		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+	}
 
 		file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
 
@@ -104,6 +114,7 @@ func AppendToFile(filename string, task string) error {
 		}
 
 	}
+
 	return nil
 
 }
@@ -117,7 +128,7 @@ func UpdateTask(filename string, id int64, taskBody string, taskStatus string) {
 		if task.Id == id {
 			var updatedTask Task
 			if taskStatus == "" {
-				
+
 				updatedTask = Task{
 					Id:          task.Id,
 					Description: taskBody,
