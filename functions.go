@@ -51,12 +51,12 @@ func AppendToFile(filename string, task string) error {
 
 	if empty {
 		data := Task{
-		Id:          1,
-		Description: task,
-		Status:     Todo,
-		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-	}
+			Id:          1,
+			Description: task,
+			Status:      Todo,
+			CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+			UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+		}
 
 		var newArray []Task
 		newArray = append(newArray, data)
@@ -75,8 +75,6 @@ func AppendToFile(filename string, task string) error {
 
 	} else {
 
-
-
 		content, err := os.ReadFile(filename)
 		if err != nil {
 			log.Fatalf("Error reading file %v", err)
@@ -87,12 +85,12 @@ func AppendToFile(filename string, task string) error {
 		}
 
 		data := Task{
-		Id:          int64(len(fileData)+1),
-		Description: task,
-		Status:      Todo,
-		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-	}
+			Id:          int64(len(fileData) + 1),
+			Description: task,
+			Status:      Todo,
+			CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+			UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+		}
 
 		file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
 
@@ -147,7 +145,7 @@ func UpdateTask(filename string, id int64, taskBody string, taskStatus string) {
 					UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
 				}
 
-			}else{
+			} else {
 
 				updatedTask = Task{
 					Id:          task.Id,
@@ -192,4 +190,6 @@ func DeleteTask(filename string, id int64) {
 	if e != nil {
 		log.Fatal(e)
 	}
+
+	
 }
