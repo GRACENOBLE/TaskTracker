@@ -108,19 +108,44 @@ func AppendToFile(filename string, task string) error {
 
 }
 
-func UpdateTask(filename string, id int64, taskBody string) {
+func UpdateTask(filename string, id int64, taskBody string, taskStatus string) {
 
 	tasks := ReadFile(filename)
 	//will do binary search in future for faster search
 
 	for i, task := range tasks {
 		if task.Id == id {
-			updatedTask := Task{
-				Id:          2,
-				Description: taskBody,
-				Status:      InProgress,
-				CreatedAt:   task.CreatedAt,
-				UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+			var updatedTask Task
+			if taskStatus == "" {
+				
+				updatedTask = Task{
+					Id:          task.Id,
+					Description: taskBody,
+					Status:      task.Status,
+					CreatedAt:   task.CreatedAt,
+					UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+				}
+
+			} else if taskBody == "" {
+
+				updatedTask = Task{
+					Id:          task.Id,
+					Description: task.Description,
+					Status:      status(taskStatus),
+					CreatedAt:   task.CreatedAt,
+					UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+				}
+
+			}else{
+
+				updatedTask = Task{
+					Id:          task.Id,
+					Description: taskBody,
+					Status:      status(taskStatus),
+					CreatedAt:   task.CreatedAt,
+					UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+				}
+
 			}
 
 			tasks[i] = updatedTask
