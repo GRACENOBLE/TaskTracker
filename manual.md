@@ -1,3 +1,6 @@
+**run the todo cli**
+source code ----> go run .
+
 **list todos**
 list all----> lists all todos in a list
 
@@ -17,3 +20,6 @@ update <todo> <id> <body> <status> ----> updates the todo at the specified id wi
 
 **delete todos**
 delete <id> ----> deletes the todo at the specified id
+
+**exit the todo cli**
+ctrl + Z ----> stop current command

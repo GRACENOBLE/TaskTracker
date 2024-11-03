@@ -12,4 +12,4 @@ go.mod ----> For managing dependencies
 
 an optional tasks.json file that is either there or not there depending on the state of the app.
 
-manual.md ----> containing all the commands and how to ude them
+[manual.md](/manual.md) ----> containing all the commands and how to ude them

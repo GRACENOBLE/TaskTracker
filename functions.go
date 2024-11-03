@@ -185,11 +185,11 @@ func DeleteTask(filename string, id int64) {
 	var newTasks []Task
 
 	for i, task := range tasks {
-			
-		task.Id = int64(i+1)
+
+		task.Id = int64(i + 1)
 
 		newTasks = append(newTasks, task)
-			
+
 	}
 
 	jsondata, err := json.MarshalIndent(newTasks, "", " ")
