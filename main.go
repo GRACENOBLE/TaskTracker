@@ -28,7 +28,7 @@ func main() {
 		}
 
 		if parts[0] == "list" && parts[1] != "" {
-			data := ReadFile("hello.json")
+			data := ReadFile("todos.json")
 
 			if parts[1] == "all" {
 				for _, todo := range data {
@@ -58,7 +58,7 @@ func main() {
 			}
 		} else if parts[0] == "add" && parts[1] != "" {
 
-			AppendToFile("hello.json", parts[1])
+			AppendToFile("todos.json", parts[1])
 
 		} else if parts[0] == "update" && parts[1] != "" && parts[2] != "" {
 
@@ -71,7 +71,7 @@ func main() {
 
 				//remember to give warning in case user accidentally creates a todo with name same as status enum type
 
-				UpdateTask("hello.json", index, parts[2], "")
+				UpdateTask("todos.json", index, parts[2], "")
 
 			} else if len(parts) == 4 {
 
@@ -80,7 +80,7 @@ func main() {
 					log.Fatal(err)
 				}
 
-				UpdateTask("hello.json", index, parts[2], parts[3])
+				UpdateTask("todos.json", index, parts[2], parts[3])
 
 			}
 
@@ -93,7 +93,7 @@ func main() {
 					log.Fatal(err)
 				}
 
-				UpdateTask("hello.json", index, "", parts[2])
+				UpdateTask("todos.json", index, "", parts[2])
 
 			}
 
@@ -111,7 +111,7 @@ func main() {
 					log.Fatal(err)
 				}
 
-				DeleteTask("hello.json", index)
+				DeleteTask("todos.json", index)
 
 			}
 

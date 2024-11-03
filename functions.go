@@ -66,7 +66,7 @@ func AppendToFile(filename string, task string) error {
 			log.Fatalf("Error converting Struct to JSON: %v", err)
 		}
 
-		e := os.WriteFile("hello.json", todoJson, 0644)
+		e := os.WriteFile("todos.json", todoJson, 0644)
 		if e != nil {
 			log.Fatalf("Error converting Struct to JSON: %v", e)
 		}
@@ -166,7 +166,7 @@ func UpdateTask(filename string, id int64, taskBody string, taskStatus string) {
 		log.Fatal(err)
 	}
 
-	e := os.WriteFile("hello.json", jsonData, 0644)
+	e := os.WriteFile("todos.json", jsonData, 0644)
 	if e != nil {
 		log.Fatal(e)
 	}
@@ -196,7 +196,7 @@ func DeleteTask(filename string, id int64) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	e := os.WriteFile("hello.json", jsondata, 0644)
+	e := os.WriteFile("todos.json", jsondata, 0644)
 	if e != nil {
 		log.Fatal(e)
 	}

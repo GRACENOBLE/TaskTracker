@@ -1,3 +1,3 @@
-module noble.com/task-tracker
+module github.com/noble/task-tracker
 
 go 1.23.2
