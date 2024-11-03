@@ -56,9 +56,7 @@ func main() {
 					}
 				} 
 			}
-		}
-
-		if parts[0] == "add" && parts[1] != "" {
+		}else if parts[0] == "add" && parts[1] != "" {
 
 			AppendToFile("hello.json", parts[1])
 
