@@ -1,17 +1,50 @@
-#[Task Tracker](https://github.com/GRACENOBLE/TaskTracker.git)
----
-__This is a task tracker app that performs crud operations on a json file__
+# [Task Tracker](https://github.com/GRACENOBLE/TaskTracker.git)
+__Sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker) challenge from [roadmap.sh](https://roadmap.sh/).__
+## How to Run
 
-The app is separated into the following files:
+Clone the repository and run the following command:
 
-main.go ----> The main entry point to the app
+```bash
+git clone https://github.com/GRACENOBLE/TaskTracker.git
+cd backend-projects/task-tracker
+```
 
-functions.go ----> The helper functions abstracted from the user
+Run the following command to build and run the project:
 
-types.go ----> This contains structs and interfaces that define the structure of the app data
+```bash
+go build -o .
+./TaskTracker
+```
+list todos
 
-go.mod ----> For managing dependencies
+```
+    list all
+```
+```
+    list todo
+```
+```
+    list in-progress
+```
+```
+    list done
+```    
+add todos
 
-an optional tasks.json file that is either there or not there depending on the state of the app.
+    add <todo>
 
-[manual.md](/manual.md) ----> containing all the commands and how to ude them
+update todos
+```
+    update <todo> <id> <body>
+```
+```
+    update <todo> <id> <body> <status>
+```
+
+delete todos
+
+    delete <id>
+
+exit the todo cli
+
+    ctrl + Z
