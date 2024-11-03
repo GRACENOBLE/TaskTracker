@@ -25,6 +25,37 @@ func main() {
 		if len(parts) < 2 {
 			fmt.Println("-> Please input more than one argument.")
 			continue
+		}  
+
+		if parts[0] == "list" && parts [1] != ""{
+			data := ReadFile("hello.json")
+
+			if parts[1] == "all" {
+				for _,todo := range data{
+
+				fmt.Printf("%v\n", todo)
+
+			}
+			continue
+			}else if parts[1]  == "done"{
+				for _, todo := range data{
+					if todo.Status == Done {
+						fmt.Printf("%v\n", todo)
+					}
+				} 
+			}else if parts[1]  == "todo"{
+				for _, todo := range data{
+					if todo.Status == Todo {
+						fmt.Printf("%v\n", todo)
+					}
+				} 
+			}else if parts[1]  == "in-progress"{
+				for _, todo := range data{
+					if todo.Status == InProgress {
+						fmt.Printf("%v\n", todo)
+					}
+				} 
+			}
 		}
 
 		if parts[0] == "add" && parts[1] != "" {
