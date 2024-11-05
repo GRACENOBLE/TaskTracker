@@ -16,7 +16,7 @@ func main() {
 
 	for {
 
-		print("Todo CLI: ")
+		fmt.Print("Todo CLI: ")
 
 		command, _ := reader.ReadString('\n')
 
